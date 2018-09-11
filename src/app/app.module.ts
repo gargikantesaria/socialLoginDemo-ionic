@@ -6,14 +6,19 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-
+import { SocialLoginServicesProvider } from '../providers/social-login-services/social-login-services';
+import { Facebook } from '@ionic-native/facebook';
+import {HttpModule} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { LinkedIn } from '@ionic-native/linkedin';
 @NgModule({
   declarations: [
     MyApp,
     HomePage
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,HttpModule,HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -23,8 +28,9 @@ import { HomePage } from '../pages/home/home';
   ],
   providers: [
     StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    SplashScreen,Facebook,GooglePlus,LinkedIn,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SocialLoginServicesProvider
   ]
 })
 export class AppModule {}

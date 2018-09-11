@@ -7,8 +7,20 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
+  
   <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
+   Login with social Applications
   </p>
+  <ul>
+    <li (click)="facebookLogin()">
+      <img src="assets/imgs/facebook.png" width="34">
+    </li>
+    <li (click)="googlePlusLogin()">
+      <img src="assets/imgs/google-plus.png" width="34">
+    </li>
+    <li (click)="linkedinLogin()">
+      <img src="assets/imgs/linkedin.png" width="34">
+    </li>
+  </ul>
+  
 </ion-content>
