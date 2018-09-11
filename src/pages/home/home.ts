@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { SocialLoginServicesProvider } from '../../providers/social-login-services/social-login-services';
+import { HelperProvider } from '../../providers/helper/helper';
 
 @Component({
   selector: 'page-home',
@@ -8,65 +9,53 @@ import { SocialLoginServicesProvider } from '../../providers/social-login-servic
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private socialLoginProviderService:SocialLoginServicesProvider) {
+  constructor(public navCtrl: NavController, private socialLoginProviderService: SocialLoginServicesProvider, private helper: HelperProvider) {
 
   }
-  facebookLogin(){
+  facebookLogin() {
     this.socialLoginProviderService.facebookLogin().then(data => {
-        
       if (data.token) {
         let authToken = data.token;
         localStorage.setItem('authData', authToken);
         localStorage.setItem('loginFrom', "cordovaFacebook");
-        //this.alreadyRegistreduserHandler(data.isNewUser)
       }
-     
-     else {
-      //this.helper.presentToast(data.message);
-     
-    }
-  }).catch(error => { 
-    //this.helper.showError(error);
-  });
-  }
-  googlePlusLogin(){
-    this.socialLoginProviderService.googleLogin().then(data => {
-      // this.loading.dismiss();
-      
-        if (data.token) { 
-          localStorage.setItem('authData', data.token);
-          localStorage.setItem('loginFrom', "cordovaGoogle");
-          //this.alreadyRegistreduserHandler(data.isNewUser)
-        } 
-      //this.helper.presentToast(data.msg);
-     
+
+      else {
+        this.helper.presentToast(data.message);
+
+      }
     }).catch(error => {
-      
-      //this.helper.showError(error);
-     
+      this.helper.showError(error);
     });
   }
-  linkedinLogin(){
+  googlePlusLogin() {
+    this.socialLoginProviderService.googleLogin().then(data => {
+      this.helper.hideLoading();
+
+      if (data.token) {
+        localStorage.setItem('authData', data.token);
+        localStorage.setItem('loginFrom', "cordovaGoogle");
+
+      }
+      this.helper.presentToast(data.msg);
+
+    }).catch(error => {
+
+      this.helper.showError(error);
+
+    });
+  }
+  linkedinLogin() {
     this.socialLoginProviderService.loginwithlinkedIn().then(data => {
       if (data.token) {
-          let authToken = data.token;
-          localStorage.setItem('authData', authToken);
-          localStorage.setItem('loginFrom', "Linkedin");
-          //this.alreadyRegistreduserHandler(data.isNewUser)
+        let authToken = data.token;
+        localStorage.setItem('authData', authToken);
+        localStorage.setItem('loginFrom', "Linkedin");
       } else {
-        //this.helper.presentToast(data.message);
+        this.helper.presentToast(data.message);
       }
     }).catch(error => {
-    //   let alert = this.alertCtrl.create({
-    //     message: error.message,
-    //     buttons: [
-    //       {
-    //         text: "Ok",
-    //         role: 'cancel'
-    //       }
-    //     ]
-    //   });
-    //   alert.present();
-     });
+      this.helper.showError(error);
+    });
   }
 }

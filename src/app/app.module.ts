@@ -12,6 +12,7 @@ import {HttpModule} from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
+import { HelperProvider } from '../providers/helper/helper';
 @NgModule({
   declarations: [
     MyApp,
@@ -30,7 +31,8 @@ import { LinkedIn } from '@ionic-native/linkedin';
     StatusBar,
     SplashScreen,Facebook,GooglePlus,LinkedIn,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SocialLoginServicesProvider
+    SocialLoginServicesProvider,
+    HelperProvider
   ]
 })
 export class AppModule {}
